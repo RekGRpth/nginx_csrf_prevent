@@ -57,7 +57,7 @@ ngx_module_t  ngx_http_csrf_prevent_filter_module = {
 	NGX_MODULE_V1_PADDING
 };
 
-static ngx_http_output_header_filter_pt  ngx_http_next_header_filter;
+//static ngx_http_output_header_filter_pt  ngx_http_next_header_filter;
 
 //from https://www.nginx.com/resources/wiki/start/topics/examples/headers_management/
 static ngx_table_elt_t *
