@@ -110,7 +110,7 @@ search_headers_in(ngx_http_request_t *r, u_char *name, size_t len) {
 	return NULL;
 }
 
-ngx_int_t
+static ngx_int_t
 prefix_cmp(const u_char* s1, const u_char* s2)
 {
 	while(*s1)
