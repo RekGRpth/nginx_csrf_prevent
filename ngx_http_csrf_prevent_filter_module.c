@@ -235,8 +235,6 @@ ngx_http_csrf_prevent_filter_create_main_conf(ngx_conf_t *cf)
 		return NULL;
 	}
 
-	conf->enable = NGX_CONF_UNSET;
-
 	return conf;
 }
 
