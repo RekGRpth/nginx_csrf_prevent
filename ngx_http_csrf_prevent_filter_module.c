@@ -16,13 +16,14 @@ static void* ngx_http_csrf_prevent_filter_create_srv_conf(ngx_conf_t *cf);
 static char* ngx_http_csrf_prevent_filter_merge_srv_conf(ngx_conf_t *cf, void* parent, void* child);
 static void* ngx_http_csrf_prevent_filter_create_loc_conf(ngx_conf_t *cf);
 static char* ngx_http_csrf_prevent_filter_merge_loc_conf(ngx_conf_t *cf, void* parent, void* child);
+static char *ngx_conf_set_flag_slot_my(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
 
 
 static ngx_command_t ngx_http_csrf_prevent_filter_commands[] = {
 	{
 		ngx_string("csrf_prevent"),
 		NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_HTTP_LIF_CONF|NGX_CONF_FLAG,
-		ngx_conf_set_flag_slot,
+		ngx_conf_set_flag_slot_my,
 		NGX_HTTP_LOC_CONF_OFFSET,
 		offsetof(ngx_csrf_prevent_loc_conf_t, enable),
 		NULL
@@ -275,4 +276,10 @@ ngx_http_csrf_prevent_filter_merge_loc_conf(ngx_conf_t *cf, void *parent, void *
 	ngx_conf_merge_value(conf->enable, prev->enable, 0);
 
 	return NGX_CONF_OK;
+}
+
+static char *ngx_conf_set_flag_slot_my(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
+	ngx_csrf_prevent_srv_conf_t *srv = ngx_http_conf_get_module_srv_conf(cf, ngx_http_csrf_prevent_filter_module);
+	srv->enable = 1;
+	return ngx_conf_set_flag_slot(cf, cmd, conf);
 }
